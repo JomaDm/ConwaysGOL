@@ -1,19 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
-
-const Button = styled.button`
-	width: 30px;
-	height: 30px;
-	border: 1px solid gray;
-	background-color: ${(props) => props.backgroundColor};
-	margin: 0.5px;
-	box-shadow: 0;
-	transition: 0.4s ease-in-out;
-`;
-
-Button.defaultProps = {
-	backgroundColor: 'white',
-};
+import { Button } from './Styles';
 
 const Square = ({ defaultColor, boardArray, setBoardArray, indexY, indexX, setMouseOver, mouseOver }) => {
 	const updateArray = () => {

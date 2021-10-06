@@ -1,76 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
+import {
+	Container,
+	BoardContainer,
+	BoardBody,
+	BoardRow,
+	BoardData,
+	ActionsRow,
+	ActionButton,
+	Information,
+} from './Styles';
 import Square from './Square';
-
-const Container = styled.div`
-	display: flex;
-	flex-direction: column;
-	font-family: 'Open Sans', sans-serif;
-	width: 100%;
-`;
-
-const BoardContainer = styled.table`
-	margin: 0;
-	gap: 0;
-	padding: 0;
-	border-spacing: 0;
-`;
-const BoardBody = styled.tbody`
-	padding: 0;
-	margin: 0;
-`;
-const BoardRow = styled.tr`
-	padding: 0;
-	margin: 0;
-`;
-const BoardData = styled.td`
-	padding: 0;
-	margin: 0;
-`;
-
-const ActionsRow = styled.div`
-	display: flex;
-	flex-direction: row;
-	justify-content: space-around;
-`;
-
-const ActionButton = styled.button`
-	-webkit-touch-callout: none; /* iOS Safari */
-	-webkit-user-select: none; /* Safari */
-	-khtml-user-select: none; /* Konqueror HTML */
-	-moz-user-select: none; /* Old versions of Firefox */
-	-ms-user-select: none; /* Internet Explorer/Edge */
-	user-select: none; /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
-	border-radius: 10px;
-	text-align: center;
-	font-weight: bold;
-	padding: 5px;
-	margin: 10px;
-	width: fit-content;
-	border: 3px solid ${(props) => props.color};
-	background-color: white;
-	color: ${(props) => props.color};
-	&:hover {
-		background-color: ${(props) => props.color + '50'};
-	}
-`;
-
-const Information = styled.div`
-	-webkit-touch-callout: none; /* iOS Safari */
-	-webkit-user-select: none; /* Safari */
-	-khtml-user-select: none; /* Konqueror HTML */
-	-moz-user-select: none; /* Old versions of Firefox */
-	-ms-user-select: none; /* Internet Explorer/Edge */
-	user-select: none; /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
-	border-radius: 10px;
-	text-align: center;
-	font-weight: bold;
-	padding: 5px;
-	margin: 10px;
-	width: 100px;
-	border: 3px solid ${(props) => props.color};
-	color: ${(props) => props.color};
-`;
 
 const defaultColor = '#EEEEEE';
 const selectedColor = '#FF0075';
