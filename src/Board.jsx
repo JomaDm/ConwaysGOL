@@ -50,6 +50,9 @@ const ActionButton = styled.button`
 	border: 3px solid ${(props) => props.color};
 	background-color: white;
 	color: ${(props) => props.color};
+	&:hover {
+		background-color: ${(props) => props.color + '50'};
+	}
 `;
 
 const Information = styled.div`

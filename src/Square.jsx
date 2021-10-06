@@ -8,6 +8,7 @@ const Button = styled.button`
 	background-color: ${(props) => props.backgroundColor};
 	margin: 0.5px;
 	box-shadow: 0;
+	transition: 0.4s ease-in-out;
 `;
 
 Button.defaultProps = {
