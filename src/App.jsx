@@ -10,6 +10,9 @@ const GlobalStyles = createGlobalStyle`
 		overflow-x:hidden;
     overflow-y:hidden;
 	}
+	::-webkit-scrollbar {
+		display: none;
+	}
 `;
 
 const AppContainer = styled.div`
