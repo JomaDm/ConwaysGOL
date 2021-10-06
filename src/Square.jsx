@@ -2,11 +2,12 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 const Button = styled.button`
-	width: 20px;
-	height: 20px;
+	width: 30px;
+	height: 30px;
 	border: 1px solid gray;
 	background-color: ${(props) => props.backgroundColor};
 	margin: 0.5px;
+	box-shadow: 0;
 `;
 
 Button.defaultProps = {
