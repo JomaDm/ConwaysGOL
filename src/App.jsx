@@ -6,6 +6,10 @@ import Board from './Board';
 
 const GlobalStyles = createGlobalStyle`
 	@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
+	body{
+		overflow-x:hidden;
+    overflow-y:hidden;
+	}
 `;
 
 const AppContainer = styled.div`
