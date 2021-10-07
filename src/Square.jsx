@@ -1,21 +1,45 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, memo } from 'react';
 import { Button } from './Styles';
 
-const Square = ({ defaultColor, boardArray, setBoardArray, indexY, indexX, setMouseOver, mouseOver }) => {
-	const updateArray = () => {
+const Square = ({
+	defaultColor,
+	setEraseOver,
+	eraseOver,
+	boardArray,
+	setBoardArray,
+	indexY,
+	indexX,
+	setMouseOver,
+	mouseOver,
+}) => {
+	const paintArray = () => {
 		let aux = [...boardArray];
-		aux[indexY][indexX] = aux[indexY][indexX] === '' ? '*' : '';
+		//aux[indexY][indexX] = aux[indexY][indexX] === '' ? '*' : '';
+		aux[indexY][indexX] = '*';
+		setBoardArray(aux);
+	};
+
+	const eraseArray = () => {
+		let aux = [...boardArray];
+		//aux[indexY][indexX] = aux[indexY][indexX] === '' ? '*' : '';
+		aux[indexY][indexX] = '';
 		setBoardArray(aux);
 	};
 
 	const HandleMouseOver = () => {
-		updateArray();
+		paintArray();
 	};
 
 	const HandleOnClick = (e) => {
 		setMouseOver(!mouseOver);
 		if (!mouseOver) {
-			updateArray();
+			paintArray();
+		}
+	};
+	const HandleErase = (e) => {
+		setEraseOver(!eraseOver);
+		if (!eraseOver) {
+			eraseArray();
 		}
 	};
 
@@ -23,8 +47,9 @@ const Square = ({ defaultColor, boardArray, setBoardArray, indexY, indexX, setMo
 		<Button
 			backgroundColor={defaultColor}
 			onMouseOver={mouseOver ? HandleMouseOver : null}
+			// onDoubleClick={eraseOver ? HandleErase : null}
 			onClick={(e) => HandleOnClick(e)}></Button>
 	);
 };
 
-export default Square;
+export default memo(Square);

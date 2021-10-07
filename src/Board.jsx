@@ -36,6 +36,7 @@ const createMatriz = (countY, countX) => {
 
 const Board = () => {
 	const [mouseOver, setMouseOver] = useState(false);
+	const [eraseOver, setEraseOver] = useState(false);
 	const [countPainted, setCountPainted] = useState(0);
 	const [start, setStart] = useState(false);
 	const [counter, setCounter] = useState(0);
@@ -122,24 +123,6 @@ const Board = () => {
 		}
 	}, [boardArray]);
 
-	// window.addEventListener('resize', () => {
-	// 	setXSize(10);
-	// 	setYSize(10);
-	// 	console.log('Resize');
-	// });
-
-	// useEffect(() => {
-	// 	let x = window.screen.width,
-	// 		y = window.screen.height;
-	// 	if (screenX <= 768) {
-	// 		setXSize(12);
-	// 		setYSize(30);
-	// 		console.log('valido');
-	// 		clearBoard();
-	// 	}
-	// 	console.log('Resize');
-	// }, [window.screen.width, window.screen.width]);
-
 	return (
 		<Container>
 			<ActionsRow>
@@ -160,7 +143,12 @@ const Board = () => {
 				</ActionButton>
 			</ActionsRow>
 			<ActionsRow>
-				<Information color={mouseOver ? selectedColor : defaultColor}>{mouseOver ? 'Active' : 'Deactive'}</Information>
+				<Information color={eraseOver ? selectedColor : defaultColor}>
+					Erase: {mouseOver ? 'Active' : 'Deactive'}
+				</Information>
+				<Information color={mouseOver ? selectedColor : defaultColor}>
+					Paint: {mouseOver ? 'Active' : 'Deactive'}
+				</Information>
 				<Information color={selectedColor}>{countPainted}</Information>
 				<Information color={selectedColor}>Vel: 500ms</Information>
 			</ActionsRow>
@@ -174,6 +162,8 @@ const Board = () => {
 										setBoardArray={setBoardArray}
 										indexY={i}
 										indexX={j}
+										setEraseOver={setEraseOver}
+										eraseOver={eraseOver}
 										mouseOver={mouseOver}
 										setMouseOver={setMouseOver}
 										boardArray={boardArray}
