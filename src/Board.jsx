@@ -19,14 +19,14 @@ const ScreenX = window.screen.width;
 let countY = (15 * ScreenY) / 768;
 let countX = (17 * ScreenX) / 768;
 
-//const ySize = ScreenY / (ScreenY / countY); // 1080/ x = 25
-//const xSize = ScreenX / (ScreenX / countX); // 1920 / x = 50
+//const countY = ScreenY / (ScreenY / countY); // 1080/ x = 25
+//const countX = ScreenX / (ScreenX / countX); // 1920 / x = 50
 
-const createMatriz = (ySize, xSize) => {
+const createMatriz = (countY, countX) => {
 	let arr = [];
-	for (let i = 0; i < ySize; i++) {
+	for (let i = 0; i < countY; i++) {
 		let subarr = [];
-		for (let j = 0; j < xSize; j++) {
+		for (let j = 0; j < countX; j++) {
 			subarr.push('');
 		}
 		arr.push(subarr);
@@ -39,11 +39,7 @@ const Board = () => {
 	const [countPainted, setCountPainted] = useState(0);
 	const [start, setStart] = useState(false);
 	const [counter, setCounter] = useState(0);
-	const [screenY, setScreenY] = useState(window.screen.height);
-	const [screenX, setScreenX] = useState(window.screen.width);
-	const [xSize, setXSize] = useState(countX);
-	const [ySize, setYSize] = useState(countY);
-	const [boardArray, setBoardArray] = useState(createMatriz(ySize, xSize));
+	const [boardArray, setBoardArray] = useState(createMatriz(countY, countX));
 
 	const randomizeBoard = () => {
 		clearBoard();
@@ -61,13 +57,13 @@ const Board = () => {
 	};
 
 	const clearBoard = () => {
-		setBoardArray(createMatriz(ySize, xSize));
+		setBoardArray(createMatriz(countY, countX));
 	};
 
 	const step = () => {
 		let aux = boardArray.map((row) => row.slice());
-		for (let i = 0; i < ySize; i++) {
-			for (let j = 0; j < xSize; j++) {
+		for (let i = 0; i < countY; i++) {
+			for (let j = 0; j < countX; j++) {
 				let coords = [
 					{ y: i - 1, x: j - 1 }, // topLeft
 					{ y: i - 1, x: j }, //topCenter
@@ -81,7 +77,7 @@ const Board = () => {
 
 				let neighbours = 0;
 				coords.forEach((element) => {
-					if (element.x >= 0 && element.x < xSize && element.y >= 0 && element.y < ySize) {
+					if (element.x >= 0 && element.x < countX && element.y >= 0 && element.y < countY) {
 						//console.log(element);
 						neighbours = boardArray[element.y][element.x] === '*' ? neighbours + 1 : neighbours;
 					}
