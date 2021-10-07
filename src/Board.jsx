@@ -16,16 +16,17 @@ const selectedColor = '#FF0075';
 //? Variables de estado
 const ScreenY = window.screen.height;
 const ScreenX = window.screen.width;
-const countY = 23;
-const countX = 50;
-const Ysize = ScreenY / (ScreenY / countY); // 1080/ x = 25
-const Xsize = ScreenX / (ScreenX / countX); // 1920 / x = 50
+let countY = (15 * ScreenY) / 768;
+let countX = (17 * ScreenX) / 768;
 
-const createMatriz = (Ysize, Xsize) => {
+//const ySize = ScreenY / (ScreenY / countY); // 1080/ x = 25
+//const xSize = ScreenX / (ScreenX / countX); // 1920 / x = 50
+
+const createMatriz = (ySize, xSize) => {
 	let arr = [];
-	for (let i = 0; i < Ysize; i++) {
+	for (let i = 0; i < ySize; i++) {
 		let subarr = [];
-		for (let j = 0; j < Xsize; j++) {
+		for (let j = 0; j < xSize; j++) {
 			subarr.push('');
 		}
 		arr.push(subarr);
@@ -34,11 +35,15 @@ const createMatriz = (Ysize, Xsize) => {
 };
 
 const Board = () => {
-	const [boardArray, setBoardArray] = useState(createMatriz(Ysize, Xsize));
 	const [mouseOver, setMouseOver] = useState(false);
 	const [countPainted, setCountPainted] = useState(0);
 	const [start, setStart] = useState(false);
 	const [counter, setCounter] = useState(0);
+	const [screenY, setScreenY] = useState(window.screen.height);
+	const [screenX, setScreenX] = useState(window.screen.width);
+	const [xSize, setXSize] = useState(countX);
+	const [ySize, setYSize] = useState(countY);
+	const [boardArray, setBoardArray] = useState(createMatriz(ySize, xSize));
 
 	const randomizeBoard = () => {
 		clearBoard();
@@ -56,13 +61,13 @@ const Board = () => {
 	};
 
 	const clearBoard = () => {
-		setBoardArray(createMatriz(Ysize, Xsize));
+		setBoardArray(createMatriz(ySize, xSize));
 	};
 
 	const step = () => {
 		let aux = boardArray.map((row) => row.slice());
-		for (let i = 0; i < Ysize; i++) {
-			for (let j = 0; j < Xsize; j++) {
+		for (let i = 0; i < ySize; i++) {
+			for (let j = 0; j < xSize; j++) {
 				let coords = [
 					{ y: i - 1, x: j - 1 }, // topLeft
 					{ y: i - 1, x: j }, //topCenter
@@ -76,7 +81,7 @@ const Board = () => {
 
 				let neighbours = 0;
 				coords.forEach((element) => {
-					if (element.x >= 0 && element.x < Xsize && element.y >= 0 && element.y < Ysize) {
+					if (element.x >= 0 && element.x < xSize && element.y >= 0 && element.y < ySize) {
 						//console.log(element);
 						neighbours = boardArray[element.y][element.x] === '*' ? neighbours + 1 : neighbours;
 					}
@@ -120,6 +125,24 @@ const Board = () => {
 			setCountPainted(painted);
 		}
 	}, [boardArray]);
+
+	// window.addEventListener('resize', () => {
+	// 	setXSize(10);
+	// 	setYSize(10);
+	// 	console.log('Resize');
+	// });
+
+	// useEffect(() => {
+	// 	let x = window.screen.width,
+	// 		y = window.screen.height;
+	// 	if (screenX <= 768) {
+	// 		setXSize(12);
+	// 		setYSize(30);
+	// 		console.log('valido');
+	// 		clearBoard();
+	// 	}
+	// 	console.log('Resize');
+	// }, [window.screen.width, window.screen.width]);
 
 	return (
 		<Container>

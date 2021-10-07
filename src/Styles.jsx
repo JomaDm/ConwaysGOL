@@ -1,7 +1,6 @@
 import styled, { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyles = createGlobalStyle`
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
 body{
   overflow-x:hidden;
   overflow-y:hidden;
@@ -13,8 +12,11 @@ body{
 
 export const AppContainer = styled.div`
 	width: 100%;
-	padding: 10vh 10vw;
+	padding: 5vh 15vw;
 	box-sizing: border-box;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
 `;
 
 export const Button = styled.button`
@@ -25,6 +27,8 @@ export const Button = styled.button`
 	margin: 0.5px;
 	box-shadow: 0;
 	transition: 0.4s ease-in-out;
+	@media only screen and (max-width: 768px) {
+	}
 `;
 Button.defaultProps = {
 	backgroundColor: 'white',
@@ -35,6 +39,7 @@ export const Container = styled.div`
 	flex-direction: column;
 	font-family: 'Open Sans', sans-serif;
 	width: 100%;
+	justify-content: center;
 `;
 
 export const BoardContainer = styled.table`
@@ -42,6 +47,7 @@ export const BoardContainer = styled.table`
 	gap: 0;
 	padding: 0;
 	border-spacing: 0;
+	border: none;
 `;
 
 export const BoardBody = styled.tbody`
@@ -63,6 +69,7 @@ export const ActionsRow = styled.div`
 	display: flex;
 	flex-direction: row;
 	justify-content: space-around;
+	width: 100%;
 `;
 
 export const ActionButton = styled.button`
@@ -84,6 +91,10 @@ export const ActionButton = styled.button`
 	&:hover {
 		background-color: ${(props) => props.color + '50'};
 	}
+	@media only screen and (max-width: 768px) {
+		maring: 5px;
+		font-size: 10px;
+	}
 `;
 
 export const Information = styled.div`
@@ -101,4 +112,10 @@ export const Information = styled.div`
 	width: 100px;
 	border: 3px solid ${(props) => props.color};
 	color: ${(props) => props.color};
+	@media only screen and (max-width: 768px) {
+		maring: 5px;
+		width: 50px;
+		font-size: 10px;
+		padding: 2.5px;
+	}
 `;
