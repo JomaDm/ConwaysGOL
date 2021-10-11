@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useMemo } from 'react';
 import {
 	Container,
 	BoardContainer,
@@ -37,7 +37,6 @@ const createMatriz = (countY, countX) => {
 
 const Board = () => {
 	const { mouseOver, paint, handlePainting } = useContext(PaintContext);
-	const [countPainted, setCountPainted] = useState(0);
 	const [start, setStart] = useState(false);
 	const [counter, setCounter] = useState(0);
 	const [boardArray, setBoardArray] = useState(createMatriz(countY, countX));
@@ -121,14 +120,13 @@ const Board = () => {
 		}
 	}, [counter, start]);
 
-	useEffect(() => {
-		if (boardArray) {
-			let painted = 0;
-			boardArray.forEach((boardRow) => {
-				boardRow.forEach((element) => (element === '*' ? painted++ : painted));
-			});
-			setCountPainted(painted);
-		}
+	const countPainted = useMemo(() => {
+		let painted = 0;
+		boardArray.forEach((boardRow) => {
+			boardRow.forEach((element) => (element === '*' ? painted++ : painted));
+		});
+		//setCountPainted(painted);
+		return painted;
 	}, [boardArray]);
 
 	return (
