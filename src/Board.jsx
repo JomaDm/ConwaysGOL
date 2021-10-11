@@ -17,8 +17,8 @@ const selectedColor = '#FF0075';
 //? Variables de estado
 const ScreenY = window.screen.height;
 const ScreenX = window.screen.width;
-let countY = (15 * ScreenY) / 768;
-let countX = (17 * ScreenX) / 768;
+let countY = (18 * ScreenY) / 768; //15
+let countX = (22 * ScreenX) / 768; //17
 
 //const countY = ScreenY / (ScreenY / countY); // 1080/ x = 25
 //const countX = ScreenX / (ScreenX / countX); // 1920 / x = 50

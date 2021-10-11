@@ -12,7 +12,7 @@ body{
 
 export const AppContainer = styled.div`
 	width: 100%;
-	padding: 5vh 15vw;
+	padding: 5vh 5vw;
 	box-sizing: border-box;
 	display: flex;
 	flex-direction: column;
