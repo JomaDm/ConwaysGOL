@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import Board from './Board';
+import { PaintProvider } from './context/PaintContext';
 import { AppContainer, GlobalStyles } from './Styles';
 
 function App(props) {
@@ -8,7 +9,9 @@ function App(props) {
 		<>
 			<GlobalStyles></GlobalStyles>
 			<AppContainer>
-				<Board></Board>
+				<PaintProvider>
+					<Board></Board>
+				</PaintProvider>
 			</AppContainer>
 		</>
 	);

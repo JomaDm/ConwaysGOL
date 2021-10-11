@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import {
 	Container,
 	BoardContainer,
@@ -10,6 +10,7 @@ import {
 	Information,
 } from './Styles';
 import Square from './Square';
+import PaintContext from './context/PaintContext';
 
 const defaultColor = '#EEEEEE';
 const selectedColor = '#FF0075';
@@ -35,8 +36,7 @@ const createMatriz = (countY, countX) => {
 };
 
 const Board = () => {
-	const [mouseOver, setMouseOver] = useState(false);
-	const [eraseOver, setEraseOver] = useState(false);
+	const { mouseOver, paint, handlePainting } = useContext(PaintContext);
 	const [countPainted, setCountPainted] = useState(0);
 	const [start, setStart] = useState(false);
 	const [counter, setCounter] = useState(0);
@@ -78,9 +78,17 @@ const Board = () => {
 
 				let neighbours = 0;
 				coords.forEach((element) => {
-					if (element.x >= 0 && element.x < countX && element.y >= 0 && element.y < countY) {
+					if (
+						element.x >= 0 &&
+						element.x < countX &&
+						element.y >= 0 &&
+						element.y < countY
+					) {
 						//console.log(element);
-						neighbours = boardArray[element.y][element.x] === '*' ? neighbours + 1 : neighbours;
+						neighbours =
+							boardArray[element.y][element.x] === '*'
+								? neighbours + 1
+								: neighbours;
 					}
 				});
 				if (neighbours === 0 || neighbours === 1 || neighbours > 3) {
@@ -105,7 +113,7 @@ const Board = () => {
 		} else {
 			time = !time
 				? setTimeout(() => {
-						console.log('cont');
+						//console.log('cont');
 						setCounter(counter + 1);
 						step();
 				  }, 500)
@@ -126,10 +134,22 @@ const Board = () => {
 	return (
 		<Container>
 			<ActionsRow>
-				<ActionButton disabled={start} onClick={randomizeBoard} color={!start ? selectedColor : defaultColor}>
+				<ActionButton
+					disabled={start}
+					color={!start ? (!paint ? selectedColor : '') : defaultColor}
+					onClick={!start ? handlePainting : null}>
+					{paint ? 'Erase' : 'Paint'}
+				</ActionButton>
+				<ActionButton
+					disabled={start}
+					onClick={randomizeBoard}
+					color={!start ? selectedColor : defaultColor}>
 					Randomize
 				</ActionButton>
-				<ActionButton disabled={start} onClick={step} color={!start ? selectedColor : defaultColor}>
+				<ActionButton
+					disabled={start}
+					onClick={step}
+					color={!start ? selectedColor : defaultColor}>
 					Step
 				</ActionButton>
 				<ActionButton onClick={(e) => setStart(true)} color={selectedColor}>
@@ -138,16 +158,16 @@ const Board = () => {
 				<ActionButton onClick={(e) => setStart(false)} color={selectedColor}>
 					Stop
 				</ActionButton>
-				<ActionButton disabled={start} onClick={clearBoard} color={!start ? selectedColor : defaultColor}>
+				<ActionButton
+					disabled={start}
+					onClick={clearBoard}
+					color={!start ? selectedColor : defaultColor}>
 					Clear
 				</ActionButton>
 			</ActionsRow>
 			<ActionsRow>
-				<Information color={eraseOver ? selectedColor : defaultColor}>
-					Erase: {mouseOver ? 'Active' : 'Deactive'}
-				</Information>
 				<Information color={mouseOver ? selectedColor : defaultColor}>
-					Paint: {mouseOver ? 'Active' : 'Deactive'}
+					{paint ? 'Painting...' : 'Erasing...'}
 				</Information>
 				<Information color={selectedColor}>{countPainted}</Information>
 				<Information color={selectedColor}>Vel: 500ms</Information>
@@ -162,10 +182,6 @@ const Board = () => {
 										setBoardArray={setBoardArray}
 										indexY={i}
 										indexX={j}
-										setEraseOver={setEraseOver}
-										eraseOver={eraseOver}
-										mouseOver={mouseOver}
-										setMouseOver={setMouseOver}
 										boardArray={boardArray}
 										defaultColor={element === '' ? defaultColor : selectedColor}
 									/>

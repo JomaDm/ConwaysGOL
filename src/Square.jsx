@@ -1,17 +1,16 @@
-import React, { useState, useEffect, memo } from 'react';
+import React, { useState, useEffect, memo, useContext } from 'react';
+import PaintContext from './context/PaintContext';
 import { Button } from './Styles';
 
 const Square = ({
 	defaultColor,
-	setEraseOver,
-	eraseOver,
 	boardArray,
 	setBoardArray,
 	indexY,
 	indexX,
-	setMouseOver,
-	mouseOver,
 }) => {
+	const { mouseOver, paint, handleMouseOver } = useContext(PaintContext);
+
 	const paintArray = () => {
 		let aux = [...boardArray];
 		//aux[indexY][indexX] = aux[indexY][indexX] === '' ? '*' : '';
@@ -26,29 +25,29 @@ const Square = ({
 		setBoardArray(aux);
 	};
 
-	const HandleMouseOver = () => {
-		paintArray();
-	};
-
-	const HandleOnClick = (e) => {
-		setMouseOver(!mouseOver);
-		if (!mouseOver) {
+	const handlePaintingGlobal = () => {
+		if (paint) {
 			paintArray();
+		} else {
+			eraseArray();
 		}
 	};
-	const HandleErase = (e) => {
-		setEraseOver(!eraseOver);
-		if (!eraseOver) {
-			eraseArray();
+
+	const handleOnClick = (e) => {
+		handleMouseOver();
+		//handlePainting();
+		handlePaintingGlobal();
+		if (mouseOver) {
+			handlePaintingGlobal();
 		}
 	};
 
 	return (
 		<Button
 			backgroundColor={defaultColor}
-			onMouseOver={mouseOver ? HandleMouseOver : null}
-			// onDoubleClick={eraseOver ? HandleErase : null}
-			onClick={(e) => HandleOnClick(e)}></Button>
+			onMouseOver={mouseOver ? handlePaintingGlobal : null}
+			// onDoubleClick={eraseOver ? handleErase : null}
+			onClick={handleOnClick}></Button>
 	);
 };
 
